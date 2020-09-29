@@ -2,12 +2,43 @@
 
 /*
 ==============
+Messages::getHelloWorld
+==============
+*/
+const char *Messages::getHelloWorld() const {
+
+	const char *str = "#include <cstdio>\n"
+		"\n"
+		"int main(void) {\n"
+		"\n"
+		"\tprintf(\"Hello World\\n\");\n"
+		"\n"
+		"\treturn 0;\n"
+		"}\n";
+
+	return str;
+}
+
+/*
+==============
 Messages::getGitignore
 ==============
 */
 const char *Messages::getGitignore() const {
 
 	const char *str = "build/*\nbin/*\n";
+
+	return str;
+}
+
+/*
+==============
+Messages::getGitkeep
+==============
+*/
+const char *Messages::getGitkeep() const {
+
+	const char *str = "*\n!.gitignore";
 
 	return str;
 }

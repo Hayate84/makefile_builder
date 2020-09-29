@@ -19,17 +19,19 @@ public:
 
 	~Command();
 	
-	void noCommand()			const;
-	void help()				const;
-	void build()				const;
-	void usage(const char * command_string)	const;
+	void noCommand()					const;
+	void help()						const;
+	void build()						const;
+	void usage(const char * command_string)			const;
+
+	bool yes(const char *message, const char *reply)	const;
 
 private:
 	
 	Messages messages;
 
-
 	void _writeToFile(const char *filename, const char *data) const;
+	void _makeDirectory(const char *dirname) const;
 };
 
 #endif

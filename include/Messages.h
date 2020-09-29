@@ -23,7 +23,8 @@ public:
 	const char *getUsage()		const;
 	const char *getMakefile()	const;
 	const char *getGitignore()	const;
-
+	const char *getGitkeep() 	const;
+	const char *getHelloWorld()	const;
 };
 
 #endif
