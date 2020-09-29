@@ -22,16 +22,7 @@ public:
 	const char *getHelp()		const;
 	const char *getUsage()		const;
 	const char *getMakefile()	const;
-
-private:
-
-	const char *initHelp();
-	const char *initUsage();
-	const char *initMakefile();
-
-	const char *HELP;
-	const char *USAGE;
-	const char *MAKEFILE;
+	const char *getGitignore()	const;
 
 };
 

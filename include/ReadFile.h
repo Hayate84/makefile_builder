@@ -7,10 +7,9 @@
 Class to read a file.
 
 Method string file_to_string(const char * fileName) takes a file name as an 
-input and returns the contents of the file as a string
+input and returns the contents of the file as a string.
 
-
-Method void handleError(const char * message); to handle file errors
+Method void handleError(const char * message); to handle file errors.
 
 ===============================================================================
 */

@@ -2,21 +2,22 @@
 
 /*
 ==============
-Messages::getMakeFile()
+Messages::getGitignore
 ==============
 */
-const char *Messages::getMakefile() const {
+const char *Messages::getGitignore() const {
 
-	return MAKEFILE;	
+	const char *str = "build/*\nbin/*\n";
 
+	return str;
 }
 
 /*
 ==============
-Messages::initMakeFile()
+Messages::getMakeFile
 ==============
 */
-const char *Messages::initMakefile() {
+const char *Messages::getMakefile() const {
 	
 	const char *str = "CC = g++\n"
 		"FLAGS = -c -Wall\n"
@@ -43,10 +44,10 @@ const char *Messages::initMakefile() {
 
 /*
 ==============
-Messages::initUsage
+Messages::getUsage
 ==============
 */
-const char *Messages::initUsage() {
+const char *Messages::getUsage() const {
 
 	const char *str = "usage: makefile_builder build\n"
 		"   or: makefile_builder add [file1 file2 ...]\n"
@@ -59,10 +60,10 @@ const char *Messages::initUsage() {
 
 /*
 ==============
-Messages::initHelp
+Messages::getHelp
 ==============
 */
-const char *Messages::initHelp() {
+const char *Messages::getHelp() const {
 	
 	const char *str = "Common commands:\n"
 		"\n"
@@ -82,8 +83,7 @@ const char *Messages::initHelp() {
 Messages::Messages
 ==============
 */
-Messages::Messages() 
-	: HELP(initHelp()), USAGE(initUsage()), MAKEFILE(initMakefile())  {
+Messages::Messages() { 
 
 }
 
@@ -93,27 +93,5 @@ Messages::~Messages
 ==============
 */
 Messages::~Messages() {
-
-}
-	
-/*
-==============
-Messages::getHelp
-==============
-*/
-const char *Messages::getHelp() const {
-
-	return HELP;
-
-}
-
-/*
-==============
-Messages::getUsage
-==============
-*/
-const char *Messages::getUsage() const {
-
-	return USAGE;
 
 }
