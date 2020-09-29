@@ -1,0 +1,21 @@
+CC = g++
+FLAGS = -c
+INCLUDE = -I ./include
+PROGRAM = ./build/main.o ./build/ReadFile.o
+ 
+all: program
+
+program: $(PROGRAM)	
+	$(CC) -o $@ $(PROGRAM)
+
+./build/main.o: ./src/main.cc
+	$(CC) $(FLAGS) ./src/main.cc $(INCLUDE)
+	mv main.o ./build/main.o
+
+./build/ReadFile.o: ./src/ReadFile.cc ./include/ReadFile.h
+	$(CC) $(FLAGS) ./src/ReadFile.cc $(INCLUDE)
+	mv ReadFile.o ./build/ReadFile.o
+
+clean:
+	rm ./build/*.o
+	rm program 
