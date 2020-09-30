@@ -1,7 +1,7 @@
 CC = g++
 FLAGS = -c -Wall
 INCLUDE = -I ./include
-OBJECTS = ./build/main.o ./build/Messages.o ./build/Command.o
+OBJECTS = ./build/main.o ./build/Messages.o ./build/Command.o ./build/Os.o
 
 all: program
 
@@ -25,3 +25,6 @@ program: $(OBJECTS)
 	$(CC) $(FLAGS) ./src/Command.cc $(INCLUDE)
 	mv Command.o ./build/Command.o
 
+./build/Os.o: ./src/Os.cc ./include/Os.h
+	$(CC) $(FLAGS) ./src/Os.cc $(INCLUDE)
+	mv Os.o ./build/Os.o

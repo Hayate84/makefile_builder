@@ -1,10 +1,4 @@
 #include <cstdio>
-#include <fstream>
-
-#include <sys/types.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
 #include "Command.h"
 
@@ -15,7 +9,6 @@ Command::Command
 */
 Command::Command() {
 	
-
 }
 
 /*
@@ -45,18 +38,17 @@ void Command::build() const {
 	
 		for (int i = 0; i < FOLDERS_NUM; i++) {
 				
-			this->_makeDirectory(folders[i]);
-		
+			os.make_directory(folders[i]);
 		}
 	
-		this->_writeToFile("Makefile", messages.getMakefile());
+		os.write_to_file("Makefile", messages.getMakefile());
 
-		this->_writeToFile(".gitignore", messages.getGitignore());
+		os.write_to_file(".gitignore", messages.getGitignore());
 
-		this->_writeToFile("build/.gitignore", messages.getGitkeep());
-		this->_writeToFile("bin/.gitignore", messages.getGitkeep());
+		os.write_to_file("build/.gitignore", messages.getGitkeep());
+		os.write_to_file("bin/.gitignore", messages.getGitkeep());
 		
-		this->_writeToFile("src/main.cc", messages.getHelloWorld());
+		os.write_to_file("src/main.cc", messages.getHelloWorld());
 
 		printf("Project builded successfully!\n");
 	}
@@ -85,7 +77,6 @@ bool Command::yes(const char *message, const char *reply) const {
 		
 		return false;
 	}
-
 }
 
 /*
@@ -97,7 +88,6 @@ void Command::noCommand() const {
 
 	printf("%s", "error: no command supplied\n\n");
 	printf("%s", messages.getUsage());
-
 }
 
 /*
@@ -108,7 +98,6 @@ Command::help
 void Command::help() const {
 
 	printf("%s", messages.getHelp());
-
 }
 
 /*
@@ -120,34 +109,24 @@ void Command::usage(const char *command_string) const {
 	
 	printf("error: invalid command '%s'\n\n", command_string);
 	printf("%s", messages.getUsage());
-
 }
 
 /*
 ==============
-Command::_makeDirectory
+Command::add
 ==============
 */
-void Command::_makeDirectory(const char *dirname) const {
+void Command::add(int argc, char *argv[]) const {
 
-	struct stat st;
+	for (int i = 0; i < argc; i++)	printf("%s\n", argv[i]);
+}
+
+/*
+==============
+Command::remove
+==============
+*/
+void Command::remove(int argc, char *argv[]) const {
 	
-	if (lstat(dirname, &st) == -1) {
-
-		mkdir(dirname, 0777);
-
-	}	
-
-}
-
-/*
-==============
-Command::_writeToFile
-==============
-*/
-void Command::_writeToFile(const char *filename, const char *data) const {
-
-	std::ofstream file(filename);
-	file << data;
-
+	printf("TODO remove\n");
 }

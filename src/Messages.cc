@@ -86,7 +86,6 @@ const char *Messages::getUsage() const {
 		"   or: makefile_builder --help (-h)\n";
 
 	return str;
-
 }
 
 /*
@@ -106,7 +105,6 @@ const char *Messages::getHelp() const {
 		"  --help (-h)         show detailed help message\n";
 
 	return str;
-
 }
 
 /*
