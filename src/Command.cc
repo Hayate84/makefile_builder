@@ -128,9 +128,9 @@ void Command::add(int argc, char *argv[]) {
 
 	for (int i = 0; i < argc; i++) {
 
-		const char *current_arg = *argv++;
+		string current_arg(*argv++);
 	
-		string object_to_add = messages.getBuildLine(current_arg);
+		string object_to_add = messages.append3("./build/", current_arg, ".o");
 
 		printf("%s\n", object_to_add.c_str());
 	}

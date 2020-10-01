@@ -30,7 +30,7 @@ public:
 	const char *getGitkeep() 	const;
 	const char *getHelloWorld()	const;
 
-	string getBuildLine(const char *arg);
+	string append3(string prefix, string str, string suffix);
 };
 
 #endif

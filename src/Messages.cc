@@ -2,17 +2,12 @@
 
 /*
 ==============
-Messages::getBuildLine
+Messages::append3
 ==============
 */
-string Messages::getBuildLine(const char *arg) {
+string Messages::append3(string prefix, string str, string suffix) {
 
-	const char *PREFIX = "./build/";	
-	const char *SUFFIX = ".o";
-	
-	string str(PREFIX);
-
-	str = str + arg + SUFFIX;
+	str = prefix + str + suffix;
 
 	return str;
 }
