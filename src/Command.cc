@@ -123,16 +123,29 @@ void Command::add(int argc, char *argv[]) {
 	const string MAKEFILE = os.file_to_string("Makefile");
 
 	string object_line = os.get_line_from_string(MAKEFILE, OBJECT_FILES_LINE);
-
+	
 	printf("%s", object_line.c_str());		
 
 	for (int i = 0; i < argc; i++) {
+		
+		messages.removeChar(object_line, '\n');
 
 		string current_arg(*argv++);
 	
 		string object_to_add = messages.append3("./build/", current_arg, ".o");
+			
+		bool in = messages.in(object_to_add, object_line);
+		
+		if (in == true) {
+						
+			printf("in line\n");
 
-		printf("%s\n", object_to_add.c_str());
+		} else {
+
+			object_line = messages.append3(object_line, " " + object_to_add, "\n");
+
+			printf("%s", object_line.c_str());
+		}	
 	}
 }
 

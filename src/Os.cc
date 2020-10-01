@@ -21,7 +21,7 @@ Os::get_line_from_string
 ================
 */
 string Os::get_line_from_string(string const &text, int n_line) const {
-	
+
 	const int LENGTH      = text.length();
 	const int NOT_IN_LINE = 0;
 	const int IN_LINE     = 1;

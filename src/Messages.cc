@@ -1,4 +1,98 @@
+#include <cstdio>
+#include <cstring>
+
+#include <iterator>
+
 #include "Messages.h"
+
+/*
+==============
+Messages::in
+==============
+*/
+bool Messages::in(string const &substring, string const &text) {
+	
+	list<string> *tokens = this->split(text, ' ');
+
+	list<string>::iterator it; 
+
+	for (it = tokens->begin(); it != tokens->end(); ++it) {
+		
+		string current_string(*it);
+
+		if (current_string == substring) {
+			
+			delete tokens;
+			
+			return true;
+		}
+	}
+	
+	delete tokens;
+
+	return false;
+}
+
+/*
+==============
+Messages::removeChar
+==============
+*/
+void Messages::removeChar(string &str, char delim) {
+	
+	const int LENGTH = str.length();
+		
+	string current_token("");
+	
+	for (int i = 0; i < LENGTH; i++) {
+		
+		char c = str[i];
+		
+		if (c != delim) {
+			
+			current_token = current_token + c;
+		}
+	}
+	
+	str = current_token;
+}
+
+/*
+==============
+Messages::split
+==============
+*/
+list<string> *Messages::split(string const &str, char delim) {
+
+	list<string> *tokens = new list<string>();
+
+	const int LENGTH = str.length();
+		
+	string current_token("");
+	
+	for (int i = 0; i < LENGTH; i++) {
+		
+		char c = str[i];
+		
+		if (c == delim) {
+			
+			tokens->push_back(current_token);			
+			
+			current_token = "";
+
+		} else {
+
+			current_token = current_token + c;
+		}
+	}
+
+	if (delim != '\n') {
+		
+		tokens->push_back(current_token);			
+	}
+	
+	return tokens;
+}
 
 /*
 ==============
