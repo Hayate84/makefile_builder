@@ -1,6 +1,10 @@
 #ifndef OS_H
 #define OS_H
 
+#include <string>
+
+using std::string;
+
 /*
 ===============================================================================
 
@@ -11,10 +15,6 @@ Methods for writing to a file, reading from a file, making directories etc
 ===============================================================================
 */
 
-#include <string>
-
-using std::string;
-
 class Os {
 
 public:
@@ -24,6 +24,8 @@ public:
 	~Os();
 
 	string file_to_string(const char *fileName)			const;
+	
+	string get_line_from_string(string const &text, int n_line) 	const;
 
 	void write_to_file(const char *filename, const char *data)	const;
 

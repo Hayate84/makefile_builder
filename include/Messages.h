@@ -11,6 +11,10 @@ Keep the messages and file templates clean and organized.
 ===============================================================================
 */
 
+#include <string>
+
+using std::string;
+
 class Messages {
 
 public:
@@ -25,6 +29,8 @@ public:
 	const char *getGitignore()	const;
 	const char *getGitkeep() 	const;
 	const char *getHelloWorld()	const;
+
+	string getBuildLine(const char *arg);
 };
 
 #endif

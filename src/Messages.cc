@@ -2,6 +2,23 @@
 
 /*
 ==============
+Messages::getBuildLine
+==============
+*/
+string Messages::getBuildLine(const char *arg) {
+
+	const char *PREFIX = "./build/";	
+	const char *SUFFIX = ".o";
+	
+	string str(PREFIX);
+
+	str = str + arg + SUFFIX;
+
+	return str;
+}
+
+/*
+==============
 Messages::getHelloWorld
 ==============
 */
@@ -67,8 +84,7 @@ const char *Messages::getMakefile() const {
 		"\n"
 		"./build/main.o: ./src/main.cc\n"
 		"\t$(CC) $(FLAGS) ./src/main.cc $(INCLUDE)\n"
-		"\tmv main.o ./build/main.o\n"
-		"\n";
+		"\tmv main.o ./build/main.o\n";
 
 	return str;
 }

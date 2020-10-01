@@ -1,8 +1,12 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
+#include <string>
+
 #include "Messages.h"
 #include "Os.h"
+
+using std::string;
 
 /*
 ===============================================================================
@@ -24,19 +28,16 @@ public:
 	void build()						const;
 
 	void usage(const char * command_string)			const;
-
-	void add(int argc, char *argv[])			const;
-	void remove(int argc, char *argv[])			const;
-
 	bool yes(const char *message, const char *reply)	const;
+
+	void add(int argc, char *argv[]);
+	void remove(int argc, char *argv[]);
 
 private:
 	
 	Messages messages;
 
 	Os os;
-	void _writeToFile(const char *filename, const char *data) 	const;
-	void _makeDirectory(const char *dirname) 			const;
 };
 
 #endif

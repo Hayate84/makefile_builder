@@ -116,9 +116,24 @@ void Command::usage(const char *command_string) const {
 Command::add
 ==============
 */
-void Command::add(int argc, char *argv[]) const {
+void Command::add(int argc, char *argv[]) {
 
-	for (int i = 0; i < argc; i++)	printf("%s\n", argv[i]);
+	const int OBJECT_FILES_LINE = 3;
+
+	const string MAKEFILE = os.file_to_string("Makefile");
+
+	string object_line = os.get_line_from_string(MAKEFILE, OBJECT_FILES_LINE);
+
+	printf("%s", object_line.c_str());		
+
+	for (int i = 0; i < argc; i++) {
+
+		const char *current_arg = *argv++;
+	
+		string object_to_add = messages.getBuildLine(current_arg);
+
+		printf("%s\n", object_to_add.c_str());
+	}
 }
 
 /*
@@ -126,7 +141,7 @@ void Command::add(int argc, char *argv[]) const {
 Command::remove
 ==============
 */
-void Command::remove(int argc, char *argv[]) const {
+void Command::remove(int argc, char *argv[]) {
 	
 	printf("TODO remove\n");
 }
