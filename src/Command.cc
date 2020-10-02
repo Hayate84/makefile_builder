@@ -120,11 +120,8 @@ void Command::add(int argc, char *argv[]) {
 
 	const int OBJECT_FILES_LINE = 3;
 
-	const string MAKEFILE = os.file_to_string("Makefile");
-
-	string object_line = os.get_line_from_string(MAKEFILE, OBJECT_FILES_LINE);
-	
-	printf("%s", object_line.c_str());		
+	string makefile    = os.file_to_string("Makefile");
+	string object_line = os.get_line_from_string(makefile, OBJECT_FILES_LINE);
 
 	for (int i = 0; i < argc; i++) {
 		
@@ -132,21 +129,19 @@ void Command::add(int argc, char *argv[]) {
 
 		string current_arg(*argv++);
 	
-		string object_to_add = messages.append3("./build/", current_arg, ".o");
+		string object_to_add = "./build/" + current_arg + ".o";
 			
 		bool in = messages.in(object_to_add, object_line);
 		
-		if (in == true) {
+		if (in == false) {
 						
-			printf("in line\n");
-
-		} else {
-
-			object_line = messages.append3(object_line, " " + object_to_add, "\n");
-
+			object_line = object_line + " " + object_to_add + "\n";
+		
 			printf("%s", object_line.c_str());
-		}	
+
+		} else printf("%s", messages.createClassTemplate("someBigClassToImport").c_str());
 	}
+
 }
 
 /*

@@ -1,9 +1,69 @@
 #include <cstdio>
 #include <cstring>
+#include <cctype>
 
 #include <iterator>
 
 #include "Messages.h"
+
+/*
+==============
+Messages::capitalize
+==============
+*/
+//TODO capitalize
+string Messages::makeHeader(string const &str) {
+	
+	const int LENGTH = str.length();
+
+	string str_cap("");
+
+	char c = toupper(str[0]);
+
+	str_cap = str_cap + c;
+	
+	for (int i = 1; i < LENGTH; i++) {
+		
+		c = str[i];
+		
+		if (isupper(c)) {
+			
+			str_cap = str_cap + "_";		
+		}
+
+		c = toupper(str[i]);
+
+		str_cap = str_cap + c;
+	}
+	
+	return str_cap + "_H";
+}
+
+/*
+==============
+Messages::createClassTemplate
+==============
+*/
+string Messages::createClassTemplate(string const &class_name) {
+
+	return "#ifndef " + makeHeader(class_name) + "\n" 					+
+	"#define " + makeHeader(class_name) + "\n" 						+
+	"\n"											+
+	"/*\n" 											+
+	"===============================================================================\n"	+
+	"\n" 											+
+	"===============================================================================\n" 	+
+	"*/\n"											+
+	"\n" 											+
+	"class " + class_name + "{\n" 								+
+	"\n" 											+
+	"public:\n" 										+
+	"\t"  + class_name + "();\n"								+
+	"\t~" + class_name + "();\n" 								+
+	"};\n" 											+
+	"\n" 											+
+	"#endif\n";
+}
 
 /*
 ==============
@@ -92,18 +152,6 @@ list<string> *Messages::split(string const &str, char delim) {
 	}
 	
 	return tokens;
-}
-
-/*
-==============
-Messages::append3
-==============
-*/
-string Messages::append3(string prefix, string str, string suffix) {
-
-	str = prefix + str + suffix;
-
-	return str;
 }
 
 /*

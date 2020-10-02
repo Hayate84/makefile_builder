@@ -33,14 +33,15 @@ public:
 	const char *getHelloWorld()	const;
 
 	// TODO decouple to other class
-	string append3(string prefix, string str, string suffix);
-
 	bool in(string const &substring, string const &text);
 
 	void removeChar(string &str, char c);
 
 	list<string> *split(string const &str, char delim);
 
+	string createClassTemplate(string const &class_name);
+
+	string makeHeader(string const &str);
 };
 
 #endif
