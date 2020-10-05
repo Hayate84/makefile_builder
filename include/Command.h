@@ -38,6 +38,10 @@ private:
 	Messages messages;
 
 	Os os;
+
+	string _makeMakefileEntry(string const &file);
+
+	void _makeClassTemplates(string const &class_name);
 };
 
 #endif

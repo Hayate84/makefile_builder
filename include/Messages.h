@@ -39,9 +39,13 @@ public:
 
 	list<string> *split(string const &str, char delim);
 
+	string join(list<string> *tokens, char delim);
+
 	string createClassTemplate(string const &class_name);
+	string createClassModule(string const &class_name);
 
 	string makeHeader(string const &str);
+	void replaceLine(string &text, const int LINE_POSITION, string line);
 };
 
 #endif

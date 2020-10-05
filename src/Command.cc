@@ -56,6 +56,34 @@ void Command::build() const {
 
 /*
 ==============
+Command::_makeMakefileEtry
+==============
+*/
+string Command::_makeMakefileEntry(string const &file) {
+
+		return "\n./build/" + file + ".o: ./src/" + file + ".cc ./include/" + file + ".h\n\t$(CC) $(FLAGS) ./src/" 	+ 
+		file + ".cc $(INCLUDE)\n\tmv " + file + ".o ./build/" + file + ".o\n";
+}
+
+/*
+==============
+Command::_makeClassTemplates
+==============
+*/
+void Command::_makeClassTemplates(string const &class_name) {
+	
+	string FILENAME_H	= "include/"	+ class_name + ".h";
+	string FILENAME_CC	= "src/" 	+ class_name + ".cc";	
+
+	string CLASS_H	= messages.createClassTemplate(class_name);
+	string CLASS_CC	= messages.createClassModule(class_name);
+
+	os.write_to_file(FILENAME_H.c_str(), CLASS_H.c_str());
+	os.write_to_file(FILENAME_CC.c_str(), CLASS_CC.c_str());
+}
+
+/*
+==============
 Command::yes
 ==============
 */
@@ -135,13 +163,20 @@ void Command::add(int argc, char *argv[]) {
 		
 		if (in == false) {
 						
-			object_line = object_line + " " + object_to_add + "\n";
-		
-			printf("%s", object_line.c_str());
+			//replace the line 
+			object_line = object_line + " " + object_to_add;	
+			messages.replaceLine(makefile, OBJECT_FILES_LINE, object_line);	
 
-		} else printf("%s", messages.createClassTemplate("someBigClassToImport").c_str());
+			//add entries to the makefile 
+			makefile = makefile + this->_makeMakefileEntry(current_arg);
+
+			//make the files
+			this->_makeClassTemplates(current_arg);				
+		}
 	}
 
+	//finally write the string to the disc
+	os.write_to_file("Makefile", makefile.c_str());
 }
 
 /*

@@ -39,6 +39,35 @@ string Messages::makeHeader(string const &str) {
 	return str_cap + "_H";
 }
 
+
+/*
+==============
+Messages::createClassModule
+==============
+*/
+string Messages::createClassModule(string const &class_name) {
+	
+	return	"#include \"" + class_name + ".h\"\n" 		+
+		"\n"						+
+		"/*\n"						+
+		"==============\n"				+
+		class_name + "::" + class_name + "()\n"		+
+		"==============\n"				+
+		"*/\n"						+
+		class_name + "::" + class_name + "() {\n"	+
+		"\n"						+
+		"}\n"						+
+		"\n"						+
+		"/*\n"						+
+		"==============\n"				+
+		class_name + "::~" + class_name + "()\n"	+
+		"==============\n"				+
+		"*/\n"						+
+		class_name + "::~" + class_name + "() {\n"	+
+		"\n"						+
+		"}\n";			
+}
+
 /*
 ==============
 Messages::createClassTemplate
@@ -46,23 +75,23 @@ Messages::createClassTemplate
 */
 string Messages::createClassTemplate(string const &class_name) {
 
-	return "#ifndef " + makeHeader(class_name) + "\n" 					+
-	"#define " + makeHeader(class_name) + "\n" 						+
-	"\n"											+
-	"/*\n" 											+
-	"===============================================================================\n"	+
-	"\n" 											+
-	"===============================================================================\n" 	+
-	"*/\n"											+
-	"\n" 											+
-	"class " + class_name + "{\n" 								+
-	"\n" 											+
-	"public:\n" 										+
-	"\t"  + class_name + "();\n"								+
-	"\t~" + class_name + "();\n" 								+
-	"};\n" 											+
-	"\n" 											+
-	"#endif\n";
+	return	"#ifndef " + makeHeader(class_name) + "\n" 						+
+		"#define " + makeHeader(class_name) + "\n" 						+
+		"\n"											+
+		"/*\n" 											+
+		"===============================================================================\n"	+
+		"\n" 											+
+		"===============================================================================\n" 	+
+		"*/\n"											+
+		"\n" 											+
+		"class " + class_name + "{\n" 								+
+		"\n" 											+
+		"public:\n" 										+
+		"\t"  + class_name + "();\n"								+
+		"\t~" + class_name + "();\n" 								+
+		"};\n" 											+
+		"\n" 											+
+		"#endif\n";
 }
 
 /*
@@ -115,6 +144,53 @@ void Messages::removeChar(string &str, char delim) {
 	}
 	
 	str = current_token;
+}
+
+/*
+==============
+Messages::replaceLine
+==============
+*/
+void Messages::replaceLine(string &text, const int LINE_POSITION, string line) {
+	
+	list<string> *tokens = this->split(text, '\n');
+
+	int i = 0;
+
+	for (list<string>::iterator it = tokens->begin(); it != tokens->end(); ++it) {
+
+		if (i == LINE_POSITION) {
+		
+			*it = line;	
+		
+			break;
+		}
+
+		++i;
+	}
+
+	text = this->join(tokens, '\n');
+
+	delete tokens;
+}
+
+/*
+==============
+Messages::join
+==============
+*/
+string Messages::join(list<string> *tokens, char delim) {
+	
+	string joined_message("");
+
+	for (list<string>::iterator it = tokens->begin(); it != tokens->end(); ++it) {
+
+		string current_string = *it;
+		
+		joined_message = joined_message + current_string + delim;	
+	}
+	
+	return joined_message;
 }
 
 /*
