@@ -1,6 +1,11 @@
+#include <iostream>
+
 #include <cstdio>
 
 #include "Command.h"
+
+using std::cout;
+using std::endl;
 
 /*
 ==============
@@ -27,8 +32,8 @@ Command::build
 */
 void Command::build() const {
 
-	const char * message = "This command will build a C++ project. Do you want to continue? [Y/n] ";	
-	const char * reply   = "Building C++ project...";
+	string message = "This command will build a C++ project. Do you want to continue? [Y/n] ";	
+	string reply   = "Building C++ project...";
 
 	if (this->yes(message, reply)) {
 	
@@ -37,8 +42,10 @@ void Command::build() const {
 		const char *folders[] = {"bin", "build", "include", "src", "test"};
 	
 		for (int i = 0; i < FOLDERS_NUM; i++) {
+			
+			string current_folder(folders[i]);
 				
-			os.make_directory(folders[i]);
+			os.make_directory(current_folder);
 		}
 	
 		os.write_to_file("Makefile", messages.getMakefile());
@@ -50,19 +57,8 @@ void Command::build() const {
 		
 		os.write_to_file("src/main.cc", messages.getHelloWorld());
 
-		printf("Project builded successfully!\n");
+		cout << "Project builded successfully!" << endl;
 	}
-}
-
-/*
-==============
-Command::_makeMakefileEtry
-==============
-*/
-string Command::_makeMakefileEntry(string const &file) {
-
-		return "\n./build/" + file + ".o: ./src/" + file + ".cc ./include/" + file + ".h\n\t$(CC) $(FLAGS) ./src/" 	+ 
-		file + ".cc $(INCLUDE)\n\tmv " + file + ".o ./build/" + file + ".o\n";
 }
 
 /*
@@ -78,8 +74,8 @@ void Command::_makeClassTemplates(string const &class_name) {
 	string CLASS_H	= messages.createClassTemplate(class_name);
 	string CLASS_CC	= messages.createClassModule(class_name);
 
-	os.write_to_file(FILENAME_H.c_str(), CLASS_H.c_str());
-	os.write_to_file(FILENAME_CC.c_str(), CLASS_CC.c_str());
+	os.write_to_file(FILENAME_H, CLASS_H);
+	os.write_to_file(FILENAME_CC, CLASS_CC);
 }
 
 /*
@@ -87,21 +83,21 @@ void Command::_makeClassTemplates(string const &class_name) {
 Command::yes
 ==============
 */
-bool Command::yes(const char *message, const char *reply) const {
+bool Command::yes(string message, string reply) const {
 
-	printf("%s", message);
+	cout << message;
 	
 	char input = getchar();
 	
 	if((input == '\n') || (input == 'Y') || (input == 'y')) {
 		
-		printf("%s\n", reply);
+		cout << reply << endl;
 
 		return true;
 		
 	} else {
 	
-		printf("%s\n", "abort");
+		cout << "abort" << endl;
 		
 		return false;
 	}
@@ -114,8 +110,8 @@ Command::noCommand
 */
 void Command::noCommand() const {
 
-	printf("%s", "error: no command supplied\n\n");
-	printf("%s", messages.getUsage());
+	cout << "error: no command supplied" << endl << endl;
+	cout << messages.getUsage();
 }
 
 /*
@@ -125,7 +121,7 @@ Command::help
 */
 void Command::help() const {
 
-	printf("%s", messages.getHelp());
+	cout << messages.getHelp();
 }
 
 /*
@@ -133,10 +129,9 @@ void Command::help() const {
 Command::usage
 ==============
 */
-void Command::usage(const char *command_string) const {
-	
-	printf("error: invalid command '%s'\n\n", command_string);
-	printf("%s", messages.getUsage());
+void Command::usage(string command_string) const {
+	cout << "error: invalid command '" << command_string << "'" << endl << endl;
+	cout << messages.getUsage();
 }
 
 /*
@@ -153,22 +148,22 @@ void Command::add(int argc, char *argv[]) {
 
 	for (int i = 0; i < argc; i++) {
 		
-		messages.removeChar(object_line, '\n');
+		str_o.removeChar(object_line, '\n');
 
 		string current_arg(*argv++);
 	
 		string object_to_add = "./build/" + current_arg + ".o";
 			
-		bool in = messages.in(object_to_add, object_line);
+		bool in = str_o.in(object_to_add, object_line);
 		
 		if (in == false) {
 						
 			//replace the line 
 			object_line = object_line + " " + object_to_add;	
-			messages.replaceLine(makefile, OBJECT_FILES_LINE, object_line);	
+			str_o.replaceLine(makefile, OBJECT_FILES_LINE, object_line);	
 
 			//add entries to the makefile 
-			makefile = makefile + this->_makeMakefileEntry(current_arg);
+			makefile = makefile + messages.getMakefileEntry(current_arg);
 
 			//make the files
 			this->_makeClassTemplates(current_arg);				
@@ -176,7 +171,7 @@ void Command::add(int argc, char *argv[]) {
 	}
 
 	//finally write the string to the disc
-	os.write_to_file("Makefile", makefile.c_str());
+	os.write_to_file("Makefile", makefile);
 }
 
 /*
@@ -186,5 +181,5 @@ Command::remove
 */
 void Command::remove(int argc, char *argv[]) {
 	
-	printf("TODO remove\n");
+	cout << "TODO remove" << endl;
 }

@@ -1,7 +1,7 @@
 CC = g++
 FLAGS = -c -Wall
 INCLUDE = -I ./include
-OBJECTS = ./build/main.o ./build/Messages.o ./build/Command.o ./build/Os.o
+OBJECTS = ./build/main.o ./build/Messages.o ./build/Command.o ./build/Os.o ./build/StringOperations.o
 
 all: program
 
@@ -28,3 +28,7 @@ program: $(OBJECTS)
 ./build/Os.o: ./src/Os.cc ./include/Os.h
 	$(CC) $(FLAGS) ./src/Os.cc $(INCLUDE)
 	mv Os.o ./build/Os.o
+
+./build/StringOperations.o: ./src/StringOperations.cc ./include/StringOperations.h
+	$(CC) $(FLAGS) ./src/StringOperations.cc $(INCLUDE)
+	mv StringOperations.o ./build/StringOperations.o

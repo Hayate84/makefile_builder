@@ -5,6 +5,7 @@
 
 #include "Messages.h"
 #include "Os.h"
+#include "StringOperations.h"
 
 using std::string;
 
@@ -26,9 +27,9 @@ public:
 	void noCommand()					const;
 	void help()						const;
 	void build()						const;
+	void usage(string command_string)			const;
 
-	void usage(const char * command_string)			const;
-	bool yes(const char *message, const char *reply)	const;
+	bool yes(string message, string reply)			const;
 
 	void add(int argc, char *argv[]);
 	void remove(int argc, char *argv[]);
@@ -39,7 +40,7 @@ private:
 
 	Os os;
 
-	string _makeMakefileEntry(string const &file);
+	StringOperations str_o;
 
 	void _makeClassTemplates(string const &class_name);
 };

@@ -66,13 +66,13 @@ string Os::get_line_from_string(string const &text, int n_line) const {
 Os::file_to_string
 ================
 */
-string Os::file_to_string(const char * fileName) const {
+string Os::file_to_string(string filename) const {
 
 	ifstream in_file;
 
-	in_file.open(fileName);
+	in_file.open(filename.c_str());
 
-	if (in_file.is_open() == false) handle_error("ERROR::OS.CC::COULD_NOT_OPEN_FILE");
+	if (in_file.is_open() == false) handle_error("ERROR::OS.CC::COULD_NOT_OPEN_FILE::" + filename);
 
 	string rv, temp = "";
 
@@ -88,7 +88,7 @@ string Os::file_to_string(const char * fileName) const {
 Os::handle_error 
 ================
 */
-void Os::handle_error(const char * message) const {
+void Os::handle_error(string message) const {
 	
 	//simple handles error by exiting the program
 	cout << message << endl;
@@ -101,13 +101,13 @@ void Os::handle_error(const char * message) const {
 Command::_makeDirectory
 ==============
 */
-void Os::make_directory(const char *dirname) const {
+void Os::make_directory(string dirname) const {
 
 	struct stat st;
 	
-	if (lstat(dirname, &st) == -1) {
+	if (lstat(dirname.c_str(), &st) == -1) {
 
-		mkdir(dirname, 0777);
+		mkdir(dirname.c_str(), 0777);
 	}	
 }
 
@@ -116,11 +116,17 @@ void Os::make_directory(const char *dirname) const {
 Os::write_to_file
 ==============
 */
-void Os::write_to_file(const char *filename, const char *data) const {
+void Os::write_to_file(string filename, string data) const {
 
-	ofstream file(filename);
+	ofstream out_file;
 
-	file << data;
+	out_file.open(filename.c_str());
+
+	if (out_file.is_open() == false) handle_error("ERROR::OS.CC::COULD_NOT_OPEN_FILE" + filename);
+
+	out_file << data;
+
+	out_file.close();
 }
 
 /*
