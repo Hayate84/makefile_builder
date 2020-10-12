@@ -145,12 +145,12 @@ string Messages::createClassTemplate(string const &class_name) {
 		"public:\n" 										+
 		"\t"  + class_name + "();\n"								+
 		"\t~" + class_name + "();\n" 								+
-		"};\n";
+		"};\n\n#endif";
 }
 
 /*
 ==============
-Messages::getMakefileEtry
+Messages::getMakefileEntry
 ==============
 */
 string Messages::getMakefileEntry(string const &file) {
