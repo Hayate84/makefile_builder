@@ -43,6 +43,8 @@ private:
 	StringOperations str_o;
 
 	void _makeClassTemplates(string const &class_name);
+
+	void _remove_entry(string &makefile, string object_to_remove);
 };
 
 #endif

@@ -22,13 +22,17 @@ public:
 
 	bool in(string const &substring, string const &text);
 
-	void removeChar(string &str, char c);
+	void removeChar(string &text, char c);
+
+	void removeOccurence(string &text, string const &occurence, char delim);
 
 	void replaceLine(string &text, const int LINE_POSITION, string line);
 
-	list<string> *split(string const &str, char delim);
-
+	list<string> *split(string const &text, char delim);
+	
 	string join(list<string> *tokens, char delim);
+
+	string removeLastChar(string &text);
 };
 
 #endif

@@ -155,10 +155,15 @@ Messages::getMakefileEntry
 */
 string Messages::getMakefileEntry(string const &file) {
 
-	return "\n./build/" + file + ".o: ./src/" + file + ".cc ./include/" + file + ".h\n\t$(CC) $(FLAGS) ./src/" 	+ 
+	return "\n./build/" + file + ".o: ./src/" + file + ".cc ./include/" + file + ".h\n\t$(CC) $(FLAGS) ./src/" + 
 		file + ".cc $(INCLUDE)\n\tmv " + file + ".o ./build/" + file + ".o\n";
 }
 
+/*
+==============
+Messages::makeHeader
+==============
+*/
 string Messages::makeHeader(string const &str) {
 	
 	const int LENGTH = str.length();

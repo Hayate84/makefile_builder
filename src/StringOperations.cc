@@ -54,15 +54,15 @@ bool StringOperations::in(string const &substring, string const &text) {
 StringOperations::removeChar
 ==============
 */
-void StringOperations::removeChar(string &str, char delim) {
+void StringOperations::removeChar(string &text, char delim) {
 	
-	const int LENGTH = str.length();
+	const int LENGTH = text.length();
 		
 	string current_token("");
 	
 	for (int i = 0; i < LENGTH; i++) {
 		
-		char c = str[i];
+		char c = text[i];
 		
 		if (c != delim) {
 			
@@ -70,7 +70,7 @@ void StringOperations::removeChar(string &str, char delim) {
 		}
 	}
 	
-	str = current_token;
+	text = current_token;
 }
 
 /*
@@ -122,20 +122,46 @@ string StringOperations::join(list<string> *tokens, char delim) {
 
 /*
 ==============
+StringOperations::removeOccurence
+==============
+*/
+void StringOperations::removeOccurence(string &text, string const &occurence, char delim) {
+	
+	list<string> *tokens = this->split(text, delim);
+	
+	string joined_message("");
+
+	for (list<string>::iterator it = tokens->begin(); it != tokens->end(); ++it) {
+
+		string current_string = *it;
+
+		if (current_string != occurence) {
+		
+			joined_message = joined_message + current_string + delim;	
+		}
+	}
+	
+	delete tokens;	
+	
+	text = joined_message;
+}
+
+/*
+==============
 StringOperations::split
 ==============
 */
-list<string> *StringOperations::split(string const &str, char delim) {
+list<string> *StringOperations::split(string const &text, char delim) {
 
 	list<string> *tokens = new list<string>();
 
-	const int LENGTH = str.length();
+	const int LENGTH = text.length();
 		
 	string current_token("");
 	
 	for (int i = 0; i < LENGTH; i++) {
 		
-		char c = str[i];
+		char c = text[i];
 		
 		if (c == delim) {
 			
@@ -155,4 +181,14 @@ list<string> *StringOperations::split(string const &str, char delim) {
 	}
 	
 	return tokens;
+}
+
+/*
+==============
+StringOperations::removeLastChar
+==============
+*/
+string StringOperations::removeLastChar(string &text) {
+	
+	return text.substr(0, text.size() - 1);
 }

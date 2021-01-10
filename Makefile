@@ -7,9 +7,9 @@ all: program
 
 clean:
 	rm ./build/*.o
-	rm ./bin/program 
- 
-program: $(OBJECTS)	
+	rm ./bin/program
+
+program: $(OBJECTS)
 	$(CC) -o $@ $?
 	mv program ./bin/program
 

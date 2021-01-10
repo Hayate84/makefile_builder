@@ -180,6 +180,86 @@ Command::remove
 ==============
 */
 void Command::remove(int argc, char *argv[]) {
+
+	const int OBJECT_FILES_LINE = 3;
+
+	string makefile = os.file_to_string("Makefile");
+
+	for (int i = 0; i < argc; i++) {
+		
+	        string object_line = os.get_line_from_string(makefile, OBJECT_FILES_LINE);
+		str_o.removeChar(object_line, '\n');
+
+		string current_arg(*argv++);
 	
-	cout << "TODO remove" << endl;
+		string object_to_remove = "./build/" + current_arg + ".o";
+			
+		bool in = str_o.in(object_to_remove, object_line);
+		
+		if (in == true) {
+
+			//replace the line 
+			str_o.removeOccurence(object_line, object_to_remove, ' ');	
+			str_o.replaceLine(makefile, OBJECT_FILES_LINE, object_line);	
+			
+			this->_remove_entry(makefile, object_to_remove);				
+
+			//delete the files
+			//this->_makeClassTemplates(current_arg);				
+		}
+
+		//finally write the string to the disc
+	//	os.write_to_file("Makefile", makefile);
+	}
+}
+
+/*
+==============
+Command::_removeEntry
+==============
+*/
+void Command::_remove_entry(string &makefile, string object_to_remove) {
+
+	//go where the entry is
+	object_to_remove = object_to_remove + ":";
+				
+	list<string> *lines = str_o.split(makefile, '\n');
+	list<string>::iterator it; 
+			
+	string newMakefile = "";
+	for (it = lines->begin(); it != lines->end(); ++it) {
+				
+		string current_string(*it);
+
+		bool in = str_o.in(object_to_remove, current_string);
+				
+		if (in == true) {
+
+			//	
+			newMakefile = str_o.removeLastChar(newMakefile);
+			//we dont need the next three lines
+			current_string = *it;
+			cout << "current_string is:" << *it << endl;
+			++it;
+			cout << "current_string is:" << *it << endl;
+			++it;
+			cout << "current_string is:" << *it << endl;
+			//if we reached eof
+			if (++it == lines->end()) {
+				newMakefile = newMakefile + current_string;
+				delete lines; return;
+			}
+			//get next entry to add
+			cout << "current_string is:" << *it << endl;
+			++it;
+			cout << "next_string is:" << *it << endl;
+					
+			current_string = *it;
+		}
+
+		newMakefile = newMakefile + current_string + "\n";
+	}
+	
+	makefile = str_o.removeLastChar(newMakefile);	
+	delete lines;	
 }

@@ -122,11 +122,23 @@ void Os::write_to_file(string filename, string data) const {
 
 	out_file.open(filename.c_str());
 
-	if (out_file.is_open() == false) handle_error("ERROR::OS.CC::COULD_NOT_OPEN_FILE" + filename);
+	if (out_file.is_open() == false) handle_error("ERROR::OS.CC::COULD_NOT_OPEN_FILE::" + filename);
 
 	out_file << data;
 
 	out_file.close();
+}
+
+/*
+==============
+Os::delete_file
+==============
+*/
+void Os::delete_file(string filename) const {
+	
+	int error_code = remove(filename.c_str());
+
+	if (error_code != 0) handle_error("ERROR::OS.CC::COULD_NOT_DELETE_FILE::" + filename);
 }
 
 /*

@@ -26,6 +26,7 @@ public:
 	string get_line_from_string(string const &text, int n_line)	const;
 
 	void write_to_file(string filename, string data)		const;
+	void delete_file(string filename) 				const;
 
 	void handle_error(string message)				const; 
 
