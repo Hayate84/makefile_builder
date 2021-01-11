@@ -45,6 +45,8 @@ private:
 	void _makeClassTemplates(string const &class_name);
 
 	void _remove_entry(string &makefile, string object_to_remove);
+
+	void _delete_files(string const &current_arg);
 };
 
 #endif

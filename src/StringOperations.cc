@@ -30,23 +30,17 @@ bool StringOperations::in(string const &substring, string const &text) {
 	
 	list<string> *tokens = this->split(text, ' ');
 
-	list<string>::iterator it; 
-
-	for (it = tokens->begin(); it != tokens->end(); ++it) {
+	for (list<string>::iterator it = tokens->begin(); it != tokens->end(); ++it) {
 		
 		string current_string(*it);
 
 		if (current_string == substring) {
 			
-			delete tokens;
-			
-			return true;
+			delete tokens;	return true;
 		}
 	}
 	
-	delete tokens;
-
-	return false;
+	delete tokens;	return false;
 }
 
 /*
@@ -143,7 +137,7 @@ void StringOperations::removeOccurence(string &text, string const &occurence, ch
 	
 	delete tokens;	
 	
-	text = joined_message;
+	text = removeLastChar(joined_message);
 }
 
 /*
