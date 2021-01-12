@@ -3,15 +3,15 @@ FLAGS = -c -Wall
 INCLUDE = -I ./include
 OBJECTS = ./build/main.o ./build/Messages.o ./build/Command.o ./build/Os.o ./build/StringOperations.o
 
-all: program
+all: makefile_builder
 
 clean:
 	rm ./build/*.o
-	rm ./bin/program
+	rm ./bin/makefile_builder
 
-program: $(OBJECTS)
+makefile_builder: $(OBJECTS)
 	$(CC) -o $@ $?
-	mv program ./bin/program
+	mv makefile_builder ./bin/makefile_builder
 
 ./build/main.o: ./src/main.cc
 	$(CC) $(FLAGS) ./src/main.cc $(INCLUDE)

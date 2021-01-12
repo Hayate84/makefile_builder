@@ -23,10 +23,11 @@ public:
 	
 	string getHelp()	const;
 	string getUsage()	const;
-	string getMakefile()	const;
 	string getGitignore()	const;
 	string getGitkeep() 	const;
 	string getHelloWorld()	const;
+
+	string getMakefile(string const &program_name);
 
 	string getMakefileEntry(string const &file);
 

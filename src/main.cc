@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
 		if (strcmp(*argv, "build") == 0) {
 
-			command.build();
+			command.build(--argc, ++argv);
 	
 		} else if ((strcmp(*argv, "--help") == 0) || (strcmp(*argv, "-h") == 0)) {
 

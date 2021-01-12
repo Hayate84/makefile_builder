@@ -30,7 +30,16 @@ Command::~Command() {
 Command::build
 ==============
 */
-void Command::build() const {
+void Command::build(int argc, char *argv[]) {
+
+	if (argc == 0) {
+
+		cout << "error: build command need an extra argument [program_name]" << endl << endl;
+		cout << messages.getUsage();
+		return;
+	}
+	
+	string program_name(*argv);
 
 	string message = "This command will build a C++ project. Do you want to continue? [Y/n] ";	
 	string reply   = "Building C++ project...";
@@ -48,7 +57,7 @@ void Command::build() const {
 			os.make_directory(current_folder);
 		}
 	
-		os.write_to_file("Makefile", messages.getMakefile());
+		os.write_to_file("Makefile", messages.getMakefile(program_name));
 
 		os.write_to_file(".gitignore", messages.getGitignore());
 

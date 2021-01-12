@@ -26,10 +26,13 @@ public:
 	
 	void noCommand()					const;
 	void help()						const;
-	void build()						const;
+
+
 	void usage(string command_string)			const;
 
 	bool yes(string message, string reply)			const;
+
+	void build(int argc, char *argv[]);
 
 	void add(int argc, char *argv[]);
 	void remove(int argc, char *argv[]);

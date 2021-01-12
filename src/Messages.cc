@@ -44,25 +44,27 @@ string Messages::getGitkeep() const {
 Messages::getMakeFile
 ==============
 */
-string Messages::getMakefile() const {
+string Messages::getMakefile(string const &program_name) {
 	
-	return "CC = g++\n"
-		"FLAGS = -c -Wall\n"
-		"INCLUDE = -I ./include\n"
-		"OBJECTS = ./build/main.o\n"
-		"\n"
-		"all: program\n"
-		"\n"
-		"clean:\n"
-		"\trm ./build/*.o\n"
-		"\trm ./bin/program\n"
-		"\n"
-		"program: $(OBJECTS)\n"
-		"\t$(CC) -o $@ $?\n"
-		"\tmv program ./bin/program\n"
-		"\n"
-		"./build/main.o: ./src/main.cc\n"
-		"\t$(CC) $(FLAGS) ./src/main.cc $(INCLUDE)\n"
+	string first_line = "CC = g++\n";
+
+	return  first_line							+
+		"FLAGS = -c -Wall\n"						+
+		"INCLUDE = -I ./include\n"					+
+		"OBJECTS = ./build/main.o\n"					+
+		"\n"								+
+		"all: " + program_name + "\n"					+
+		"\n"								+
+		"clean:\n"							+
+		"\trm ./build/*.o\n"						+
+		"\trm ./bin/" + program_name + "\n"				+
+		"\n"								+
+		program_name + ": $(OBJECTS)\n"					+
+		"\t$(CC) -o $@ $?\n"						+
+		"\tmv " + program_name + " ./bin/" + program_name + "\n"	+
+		"\n"								+
+		"./build/main.o: ./src/main.cc\n"				+
+		"\t$(CC) $(FLAGS) ./src/main.cc $(INCLUDE)\n"			+
 		"\tmv main.o ./build/main.o\n";
 }
 
@@ -73,7 +75,7 @@ Messages::getUsage
 */
 string Messages::getUsage() const {
 
-	return "usage: makefile_builder build\n"
+	return "usage: makefile_builder build [program_name] \n"
 		"   or: makefile_builder add [file1 file2 ...]\n"
 		"   or: makefile_builder remove [file1 file2 ...]\n"
 		"   or: makefile_builder --help (-h)\n";
@@ -88,7 +90,7 @@ string Messages::getHelp() const {
 	
 	return "Common commands:\n"
 		"\n"
-		"  makefile_builder build                    will build the project and a basic makefile\n"
+		"  makefile_builder build [program_name]     will build the project [program_name] and a basic makefile\n"
 		"  makefile_builder add [file1 file2 ...]    will add a files to the makefile\n"
 		"  makefile_builder remove [file1 file2 ...] will remove files from the makefile\n"
 		"\n"
